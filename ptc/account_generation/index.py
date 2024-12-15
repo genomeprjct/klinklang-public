@@ -480,9 +480,10 @@ def generate(
 
     # Check domain account limit
     max_accounts = config.max_accounts_per_domain
-    if not check_domain_account_limit(domain, max_accounts, accounts_collection):
-        logger.error(f"Domain '{domain}' has reached the maximum allowed accounts ({max_accounts}). No account will be created.")
-        return False
+    if max_accounts:
+        if not check_domain_account_limit(domain, max_accounts, accounts_collection):
+            logger.error(f"Domain '{domain}' has reached the maximum allowed accounts ({max_accounts}). No account will be created.")
+            return False
 
     # Proceed with account generation
     generated = False
